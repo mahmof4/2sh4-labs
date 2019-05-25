@@ -1,0 +1,59 @@
+/*Fahad Mahmood,
+1414984,
+mahmof4,
+Lab 1,
+Q6*/
+
+//6a)
+
+#include <stdio.h>
+
+int main(void)
+{
+    int input, output=0, x, i;
+    
+    printf("Please enter a seven-digit integer: ");
+    scanf("%d", &input);
+    
+    for(i=1; i<7; i++){
+        x = input%10; //divides the input by 10 and makes remainder equal to x
+        input = (input-x)/10; //takes the last digit out of the integer
+        output = output*10+x; //stores the x in output
+        //printf("%d, %d\n", input, output);
+    }
+    
+    output = output*10 + input;
+    printf("The seven-digit integer backwards is: %d\n", output);
+    return 0;
+}
+
+//6b)
+
+#include <stdio.h>
+
+int main(void)
+{
+    int input, output=0, x, i, z=0;
+    
+    printf("please enter your input integer: ");
+    scanf("%d", &input);
+    
+    x = input/10; //
+    while(x>0)
+    {
+        x = x/10;
+        z = z+1;
+    }
+    
+    for(i=0; i<z; i++)
+    {
+        x = input%10; //divides the input by 10 and makes remainder equal to x
+        input = (input-x)/10; //takes the last digit out of the integer
+        output = output*10+x; //stores the x in output
+        //printf("%d, %d\n", input, output);
+    }
+    
+    output = output*10+input;
+    printf("the input number print backwards is: %d\n", output);
+    return 0;
+}

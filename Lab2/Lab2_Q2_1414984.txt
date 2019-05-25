@@ -1,0 +1,154 @@
+//Fahad Mahmood
+//mahmof4
+//1414984
+//Lab2
+
+//Question 2a
+#define N 3
+
+int is_diag_dom(int mat[][N]);
+#include <stdio.h>
+#include <math.h>
+#define N 3 //defining the columns
+
+int is_diag_dom(int matrix[][N]){ //defining the function
+    
+    int countera=0, counterb=0, row_sum=0, x=1; //defining integers
+
+    for (countera; countera<N; countera++){
+        for(counterb; counterb<N; counterb++){
+            printf("%d ", matrix[countera][counterb]);
+        }
+    }
+
+    for (countera; countera<N; countera++){
+        for(countera; counterb<N; countera++){
+            row_sum = row_sum + fabs(matrix[countera][counterb]);
+        }
+
+        if(fabs(matrix[countera][countera]) <= row_sum - fabs(matrix[countera][countera])){
+            //x=0;
+            break;
+        }
+        row_sum=0;
+    }
+
+    if(x==1){
+        printf("\nIt is a diagonally dominant matrix.\n");
+    }
+
+    else{
+        printf("\nIt is not a diagonally dominant matrix.\n");
+    }
+}
+#include <stdio.h>
+#define N 3
+
+int main(void){
+
+    int a[N][N]={1, 2, 3, 5, 6, 7, 8, 9, 1};
+   
+    is_diag_dom(a);
+}
+
+//Question2b
+#define N 5
+
+int is_toeplitz(int a[][N], int m); //declaring a function
+#include <stdio.h>
+#include <math.h>
+#define N 5 //defining the columns
+
+int is_toeplitz(int a[][N], int m){ //defining the function
+
+int countera=0, counterb=0, i=1; //defining integers
+
+for (countera; countera<m; countera++){
+        for(counterb; counterb<N; counterb++){
+            
+            printf("%d \n", a[countera][counterb]);
+        }
+    }
+
+for(countera; countera<m-1; countera++){
+    for(counterb=0; counterb<N-1; counterb++){
+
+        if(a[countera][counterb]!=a[(countera)+1][(counterb)+1]){
+            
+            i=0;
+            break;
+        }
+    }
+}
+
+if(i==0){
+
+    puts("It is not a Toeplitz matrix.");
+}
+
+else{
+    
+    puts("It is a Toeplitz matrix.");
+}
+}
+int main(void){
+
+    int a[4][N]={9, 2, 1, 0, 4, 7, 9, 2, 1, 0, 3, 7, 9, 2, 1, 5, 3, 7, 9, 2};
+    is_toeplitz(a, 4);
+}
+
+//Question2c
+#define N 4
+
+int print_dig(int a[][N], int m);
+#include <stdio.h>
+#define N 4 //defining the columns
+
+int print_dig(int a[][N], int m){
+    int countera=0, counterb=0, x=0, y=0;
+    
+    for (countera=0; countera<m; countera++){
+        printf("%d \n", a[countera][x]);
+        counterb=countera;
+
+        while (counterb!=0){
+            printf("%d \n", a[(counterb)-1][x+1]);
+            counterb--;
+            x++;
+        }
+        x=0;
+    }
+    y=m-1;
+
+    for (countera=1; countera<m; countera++){
+        counterb=y;
+        x=countera;
+        printf("%d\n", a[counterb][x]);
+
+        if((counterb==y)&&(x==y)){
+                break;
+            }
+
+        while(counterb!=1){
+            printf("%d\n", a[counterb-1][x+1]);
+            counterb--;
+            x++;
+
+            if(x==y){
+                counterb=1;
+            }
+        }
+    }
+}
+
+#include <stdio.h>
+#define N 4
+
+int main(void){
+
+    int matrix[N][N] = {1, 12, 13, 49, 5, 16, 17, 81, 9, 10, 11, 20, 2, 45, 19, 14};
+
+    printf("%d", matrix[0][2]);
+
+    print_dig(matrix, 5);
+}

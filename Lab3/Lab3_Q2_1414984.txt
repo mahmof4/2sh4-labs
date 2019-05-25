@@ -1,0 +1,34 @@
+//Fahad Mahmood
+//mahmof4
+//L05
+
+//Lab03Q02
+
+int main(void){//main
+    const int x[5]={1,2,2,5,5}; int a;int*y=sort(x,5,&a);printarray(y,a);
+    printf(" %d ",x);
+}
+
+int *sort(const int a[], int n, int *ptr){//function1
+    int x=0,y=0,a,b,i,c;int* S;
+    S=(int*)malloc(n*sizeof(int));//creating memory
+    for (x=0;x<n;x++){b[x]=a[x];}//for
+    for (x=0;x<n;x++){//for
+      for (y=x+1;y<n;){//for
+         if (b[y]==b[x]){//if
+            for (a=y;a<n;a++){b[a]=b[a+1];}//for
+            n--;
+         } 
+         else{y++;}//else
+      }
+    }
+   for (x=0;x<n;x++){c[x]=b[x];}//for
+   for (x=0;x<n;x++){S[x]=c[x];} //for
+   for(y=0;y<n-1;y++){//for
+        if(S[y]>S[y+1]){//if
+            x=S[y];
+            S[y]=S[y+1];
+            S[y+1]=x;}}
+    *ptr=n;
+    return &S[0];//return
+}

@@ -1,0 +1,27 @@
+/*Fahad Mahmood,
+1414984,
+mahmof4,
+Lab 1,
+Q4*/
+
+//4)
+
+#include <stdio.h>
+
+// Program to find the value of Pi
+
+float main(void){
+    float n, sign=1, i, pi=0; //using floats because the value of Pi is 3.14...
+    
+    printf("Please input the value of n: ");
+    scanf("%f", &n);
+    
+    if(n>=1){
+        for(i=1; i<=n; i++){
+            pi += sign*(4/(2*i-1)); //actual equation is for this series is (-1)^(i+1)*4/(2*n-1)
+            sign=-sign; //after every loop the sign changes to add and subtract simultaneously
+        }
+    }
+    printf("The value of pi is %f.\n", pi);
+    return 0;
+}

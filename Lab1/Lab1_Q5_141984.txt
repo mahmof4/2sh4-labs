@@ -1,0 +1,26 @@
+/*Fahad Mahmood,
+1414984,
+mahmof4,
+Lab 1,
+Q5*/
+
+//5)
+
+#include <stdio.h>
+
+int main(void){
+    int side1, side2, h, i;
+    
+    for(side2=1; side2<=200; side2++){ //side2<=200 given in the question
+       for (side1=1; side1<=side2; side1++){ //side1<=side2 given in the question
+           for (h=1; h<=200; h++){
+               if ((side1)*(side1)+(side2)*(side2) == h*h){ //if this formula is satisfied: H^2 = B^2 + P^2
+                   printf("Side1: %d, Side2: %d, Hypotenuse: %d is a set of the triple. \n", side1, side2, h);
+                   i += 1;
+               }
+           }
+       }
+    }
+    printf("The total number of triples is: %d \n", i);   
+    return 0;
+}

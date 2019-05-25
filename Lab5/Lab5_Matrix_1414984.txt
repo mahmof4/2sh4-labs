@@ -1,0 +1,133 @@
+//Fahad Mahmood
+//L05
+//1414984
+//Lab 5
+
+//Matrix Class
+
+public class Matrix {
+    private int rows;
+    private int cols;
+    private int[][] data;
+    
+    public Matrix(int row, int col){
+        rows = row;
+        cols = col;
+        
+        if(rows <= 0){
+            rows = 2;
+        }
+        if(cols <= 0){
+            cols = 2;
+        }
+        data = new int[rows][cols];
+    }
+    
+    public Matrix(int[][] data){
+        int row = data.length;
+        int col = data[0].length;
+        this.data = new int [row][col];
+        
+        for(int i=0;i<row;i++){
+            for(int j=0;j<col;j++){
+                //the construction of matrix goes here
+                this.data[i][j] = data[i][j];
+            }
+        }
+    }
+    
+    
+    public int getElement(int i, int j) throws ArithmeticException{
+        if(i<this.rows&&j<this.cols){
+            return(this.data[i][j]);
+        }
+        else{
+            throw new ArithmeticException("");
+        }
+    }
+    
+    public boolean SetElement(int x, int i, int j){
+        if(i<this.rows&&j<this.cols){
+            this.data[i][j]=x;
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    
+    public Matrix copy(){
+        Matrix copy = new Matrix(this.data);
+        return copy;
+    }
+    
+    public void addTo(Matrix m) throws ArithmeticException{
+        if(this.rows==m.rows&&this.cols==m.cols){
+            for(int i=0;i<this.rows;i++){
+                for(int j=0;j<this.cols;j++){
+                    this.data[i][j]+=m.data[i][j];
+                }
+            }
+        }
+        else{
+            throw new ArithmeticException("");
+        }
+    }
+    
+    public Matrix subMatrix(int i, int j) throws ArithmeticException{
+        Matrix subm = new Matrix(i,j);
+        if(i<this.rows&&j<this.cols){
+            for(int a=0;a<subm.rows;a++){
+                for(int b=0;b<subm.cols;b++){
+                    subm.data[a][b]=this.data[a][b];
+                }
+            }
+        }
+        else{
+            throw new ArithmeticException("");
+        }
+        return subm;
+    }
+    
+    public boolean isLowerTr(){
+        int lowtri = 1;
+        for(int i=0;i<this.rows;i++){
+            for(int j=(i+1);j<this.cols;j++){
+                if(this.data[i][j]!=0){
+                    lowtri=0;
+                }
+            }
+        }
+        if(lowtri==0){
+            return false;
+        }
+        else{
+            return true;
+        }
+    }
+    
+    public static Matrix sum(Matrix[] matrixArray) throws ArithmeticException{
+        Matrix sumofmatrix = new Matrix(matrixArray[0].rows,matrixArray[0].cols);
+        if(matrixArray[0].rows==matrixArray[2].rows&&matrixArray[0].cols==matrixArray[2].cols){
+            for(int i=0;i<matrixArray.length;i++){
+                sumofmatrix.addTo(matrixArray[i]);
+            }
+        }
+        else{
+            throw new ArithmeticException("");
+        }
+        return sumofmatrix;
+    }
+    
+    public String toString(){
+        
+        String output = new String();
+        for(int i=0;i<this.rows;i++){
+            for(int j=0;j<this.cols;j++){
+                output += this.data[i][j] + "  ";
+            }
+        output+="\n";
+        }
+        return output;
+    }
+}

@@ -1,0 +1,80 @@
+/*Fahad Mahmood,
+1414984,
+mahmof4,
+Lab 1,
+Q7*/
+
+//7a)
+
+#include <stdio.h>
+
+int main(void) {
+    
+    int x, i, y, num=0, count=0;
+    
+    FILE*input_file = fopen("inputfile.txt", "r"); //opening the files
+    FILE*output_file = fopen("outputfile.txt", "w");
+    
+    fscanf(input_file, "%d", &x); //storing the values in x
+    
+    for(i=1; i<=x; i++){ //starting from 1, ranging till the integer in the input file i increases by 1 as the loop progresses
+        fscanf(input_file, "%d", &y); //every integer from input file is stored in y
+        //printf("%d", y);
+        
+        if(y==num){
+            count+=1; //when y is 0 add 1 to count
+            }
+        
+        else{ //otherwise do this
+            num=y;
+            fprintf(output_file, "%d ", count); //printing the count in the output
+            count=1;
+        }
+        }
+    fprintf(output_file, "%d ", count); //outputs the answer in the output file
+    
+    fclose(input_file); //closing the files
+    fclose(output_file);
+    return 0;
+}
+
+
+//7b)
+
+#include <stdio.h>
+
+int main(void) {
+    
+    int n, i, x, count1 = 0, count2 = 0;
+    
+    FILE*input_file = fopen("inputfile.txt", "r"); //opening the files
+    FILE*output_file = fopen("outputfile.txt", "w");
+    
+    fscanf(input_file, "%d", &count2); 
+     
+    for(i=0; i<count2; i++){
+        
+        if(count1%2 == 0){ //when remainder is 0
+            
+            count1++; //adds +1 to count 1 every time if is satisfied
+            fscanf(input_file, "%d", &n); //stores count1 in n
+            for(x=0; x<n; x++){ //so when range is less than n, 1 is printed in the output file
+                fprintf(output_file, "%d ", 0);
+            }
+        }
+    
+        if(count1%2 == 1){ //when remainder is 1
+            
+            count1++; //adds +1 to count 1 every time if is satisfied
+            fscanf(input_file, "%d", &n); //stores count1 in n
+            for(x=0; x<n; x++){ //so when range is less than n, 1 is printed in the output file
+                    fprintf(output_file, "%d ", 1);
+                }
+        }
+        
+    }
+    
+    fclose(input_file); //closing the files
+    fclose(output_file);
+    return 0;
+}

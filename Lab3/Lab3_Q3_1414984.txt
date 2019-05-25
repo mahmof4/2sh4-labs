@@ -1,0 +1,15 @@
+//Fahad Mahmood
+//mahmof4
+//L05
+
+//Lab03Q03
+
+char*my_strcat(const char*const str1,const char*const str2){
+    int a=strlen(str1), b=strlen(str2);int len = a+b, x=0;
+    char*end=(char*)malloc(len*sizeof(char));
+    
+    for (x=0;x<(strlen(str2));x++){end[x+strlen(str1)]=str2[x];}
+    for (x=0;x<(strlen(str1));x++){end[x]=str1[x];}
+    return &end[0];
+}
+int main(){printf("%s",my_strcat("Hey","What's up!"));}

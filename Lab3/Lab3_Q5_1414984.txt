@@ -1,0 +1,41 @@
+//Fahad Mahmood
+//mahmof4
+//L05
+
+//Lab03Q05
+
+int main(void) {
+    int x;
+    char in[]= "file_in.txt", out[]="file_out.txt";
+    output_words(out, read_words(in,&x), x);
+    return 0;
+}
+
+char **read_words(const char*input_filename,int *nPtr);
+char **read_words(const char *input_filename, int *nPtr){
+    int x; int len=0; int i=0;char **array=NULL; char *z=NULL;
+    FILE *file_in; file_in =fopen(input_filename, "r");
+
+    fscanf(file_in,"%d", &i);
+    *nPtr=i;
+    array=(char**)calloc(i, sizeof(char*));
+    z=(char*)calloc(i, sizeof(char));
+
+    for (x=0;x<i;x++){
+        fscanf(file_in, "%s", y);
+        len=strlen(z)+1;
+        array[x]=(char*)calloc(len, sizeof(char));
+        strcpy(array[x],z);
+    }
+
+    fclose(file_in);
+    return array; 
+}
+
+
+void output_words(const char *output_filename, char**sArray,int size);
+void output_words(const char*output_filename, char **sArray, int size){
+    int x;
+    for (x=size-1;x>=0;x--){
+    }
+}

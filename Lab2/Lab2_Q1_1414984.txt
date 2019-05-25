@@ -1,0 +1,64 @@
+//Fahad Mahmood
+//mahmof4
+//1414984
+//Lab2
+
+//Question1
+
+void print_vector(double array[], int size); //declaring a function
+
+void add_vectors(double vector1[], double vector2[], double vector3[], int n); //declaring a function
+
+double scalar_prod(double vector1[], double vector2[], int n); //declaring a function
+
+double norm2(double vector1[], int n); //declaring a function
+
+//1a
+
+void print_vector(double array[], int size){ //defining the function
+    int i; //defining integers
+    for(i=0; i<size; i++){
+        printf("print vector: %f\n", array[i]); //just printing vector
+    }
+}
+
+//1b
+
+void add_vectors(double vector1[], double vector2[], double vector3[], int n){ //defining the function
+    int i; //defining integers
+    for(i=0; i<n; i++){
+        vector3[i] = vector1[i] + vector2[i]; //adding vectors
+        printf("add vectors: %f\n", vector3[i]);
+    }
+}
+
+//1c
+
+double scalar_prod(double vector1[], double vector2[], int n){ //defining the function
+    int i, sum = 0; //defining integers
+    for(i=0; i<n; i++){
+        sum += (vector1[i])*(vector2[i]); //scalar product of the vector
+    }
+    return sum;
+}
+
+//1d
+
+double norm2(double vector1[], int n){ //defining the function
+    return sqrt(scalar_prod(vector1, vector1, n)); //scalar product of the vector with itself
+}
+int main(void){
+    double x[4] = {0, 1, 2, 3};
+    double y[4] = {4, 5, 6, 7};
+    double z[4] = {0, 0, 0, 0};
+    
+    print_vector(x, 4);
+            
+    add_vectors(x, y, z, 4);
+    
+    printf("sp %f\n", scalar_prod(x, y, 5));
+    
+    printf("norm %f\n", norm2(x, 4));
+    
+    return 0;
+}

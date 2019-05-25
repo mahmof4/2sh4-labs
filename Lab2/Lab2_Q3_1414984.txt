@@ -1,0 +1,38 @@
+//Fahad Mahmood
+//mahmof4
+//1414984
+//Lab2
+
+//Question3
+void string_copy(const char source[], char destination[], int n); //declaration of function
+#include <stdio.h>
+
+void string_copy(const char source[], char destination[], int n){ //defining the function
+    
+    int x=0, i=0; //i is counter
+
+    for (x; x<n; x++){
+        if (source[x]=='\0') //if function is not sufficient to hold the char, included null char
+            break; //stop the program
+        
+        else{ //if function is sufficient to hold the char
+            destination[x] = source[x]; //destination stores the string sumultaneously, then source gets it from destination
+            i++;
+        }
+    }
+
+    //destination[i]='\0'; 
+
+    printf("%s \n", destination);
+}
+#include <stdio.h>
+
+int main(void){
+
+    char name[]="My name is Fahad.";
+    char size[10];
+    
+    //printf("%s\n", name);
+    string_copy(name, size, 10);
+    
+}

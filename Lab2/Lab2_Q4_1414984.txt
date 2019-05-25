@@ -1,0 +1,95 @@
+//Fahad Mahmood
+//mahmof4
+//1414984
+//Lab2
+
+//Question4a
+void efficient(const int source[], int val[], int pos[], int size); //declaring the function
+#include <stdio.h>
+
+void efficient(const int source[], int val[], int pos[], int size){ //defining the function
+
+    int x=0, k=0; //integer declaration
+    
+    for (x; x<size; x++){
+        if (source[x]!= 0){ 
+            
+            val[k] = source[x]; //when non 0 number is found in the vector, the value is stored
+            pos[k] = x; //when 0 is found in the vector, the position is stored
+            k++;
+
+        }
+    }
+}
+
+#include <stdio.h>
+
+int main(void){
+    
+    int b=0, k=0;
+    int y[8],z[8];
+    
+    int x[8] = {0, 0, 23, 0, -7, 0, 0, 48};
+    
+    for(b; b<8; b++){
+        //printf("%d\n", x[b]);
+        if(x[b]!=0){
+            k++;
+            y[k]=0;
+            z[k]=0;
+        }
+    }
+
+    
+    int i; //i is counter
+
+    efficient(x, y, z, 8);
+    
+    for(i=0; i<k; i++){
+        printf("val contains: ");
+        printf("%d\n", y[i]);
+    }
+    
+    for(i=0; i<k; i++){
+        printf("pos contains: ");
+        printf("%d\n", z[i]);
+    }
+}
+
+//Question4b
+void reconstruct(int source[], int m, const int val[], const int pos[], int n);
+void reconstruct(int source[], int m, const int val[], const int pos[], int n){ //defining the function
+
+    int x=0, k=0; //defining integers
+
+    for (x; x<m; x++){
+        if(x==val[k]){ //when the value inside vector is 0
+            
+            source[x]=pos[k]; //it is stored in pos vector
+            k++;
+        }
+
+        else{
+
+            source[x]=0;
+        }
+    }
+}
+#include <stdio.h>
+
+
+int main(void){
+    
+    int n = 8;
+    int val[3] = {2, 4, 7};
+    int pos[3] = {23, -7, 48};
+    int source[n];
+    int i=0;
+
+    reconstruct(source, n, val, pos, 3);
+
+    for(i; i<8; i++){
+        printf("%d, ", source[i]);
+
+    }
+}

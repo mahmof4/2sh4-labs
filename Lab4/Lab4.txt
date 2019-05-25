@@ -1,0 +1,209 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct{
+    int studentidnumber;
+    char studentname[20];
+    int projectmark;
+    int finalexammark;
+    float finalcoursemark;
+} student;
+
+student** create_class_list(char* filename,int *sizePtr);
+student** create_class_list(char* filename,int *sizePtr){
+    int i;
+    FILE*input_file;
+    input_file=fopen(filename,"r");//opening the file to read
+    fscanf(input_file,"%d",sizePtr);//storing the size in sizePtr
+
+    student**students;
+    students = (student**)calloc((*sizePtr),sizeof(student*));//creating memory for the students
+    
+    for (i=0;i<*sizePtr;i++)
+    {
+        students[i]=(student*)calloc(1,sizeof(student));//creating memory for 1 student at a time
+        fscanf(input_file,"%d",&students[i]->studentidnumber);//storing student id numbers
+        fscanf(input_file,"%[^\n]s",students[i]->studentname);//storing student names
+        students[i]->projectmark=0;
+        students[i]->finalexammark=0;
+        students[i]->finalcoursemark=0;
+    }
+    return students;
+    fclose(input_file);
+}
+
+int find_linsrch(int idNo, student **list, int size);
+int find_linsrch(int idNo, student **list, int size){
+    int i;
+    
+    for(i=0;i<size;i++){
+        if(list[i]->studentidnumber==idNo){
+            return i;
+        }
+    }
+    return -1;
+}
+
+int find_binsrch(int idNo, student **list, int size);
+int find_binsrch(int idNo, student **list, int size){
+    int low=0;
+    int high=(size-1);
+    int Index;
+    
+    while(low<=high){
+        Index=(low+high)/2;
+        
+        if((list[Index]->studentidnumber)==idNo){
+            printf("Student ID number %d was found at index %d\n",idNo,Index);
+            return Index;
+        }
+        else if((list[Index]->studentidnumber)>idNo){
+            printf("Index probed %d\n",Index);
+            high = Index-1;
+        }
+        else{
+            low=Index+1;
+        }
+    }
+    return -1;
+}
+
+void input_grades(char *filename, student **list, int size);
+void input_grades(char *filename, student **list, int size){
+    FILE *input_file = fopen(filename, "r");//opening the grade file
+    int i, pos, id=0;
+    printf("Grades of Students\n");
+    
+    for(i=0;i<size;i++){
+        fscanf(input_file,"%d",&id);
+        pos=find_linsrch(id,list,size);//finding id that corresponds to student
+        fscanf(input_file,"%d %d",&(list[pos]->projectmark),&(list[pos]->finalexammark));
+    }
+    
+    for(i=0;i<size;i++){
+        printf("Student ID:%d Project Grade:%d Final Exam Grade:%d \n",list[i]->studentidnumber,list[i]->projectmark,list[i]->finalexammark);
+    }
+    printf("\n");
+}
+
+void compute_final_course_marks(student **list, int size);
+void compute_final_course_marks(student **list, int size){
+    int i;
+    
+    for(i=0;i<size;i++){//satisfying requirements of the lab
+        list[i]->finalcoursemark = 0.6*(list[i]->finalexammark)+0.4*(list[i]->projectmark);
+    }
+}
+
+void output_final_course_mark(student **list, char *filename, int size);
+void output_final_course_mark(student **list, char *filename, int size){
+    int i;
+    FILE *output_file;
+    output_file=fopen(filename,"w");//opening the output file to write
+    printf("Final Course Marks\n");
+    
+    fprintf(output_file,"%d\r\n",size);//printing size inside the output file
+    
+    for(i=0;i<size;i++){//printing student id and marks simultaneously 
+        fprintf(output_file,"%d %lf\r\n",list[i]->studentidnumber,list[i]->finalcoursemark);
+        printf("Student ID:%d Final Course Mark:%lf \n",list[i]->studentidnumber,list[i]->finalcoursemark);
+    }
+    printf("\n");
+    fclose(output_file);
+    printf("Please open the output file.\n");
+    printf("\nPrinting IDs Backwards\n");
+}
+
+void print_backwards(student**list, int size);
+void print_backwards(student**list, int size){
+    if(size>0){
+        printf("Student ID:%d\n",list[size-1]->studentidnumber);
+    }
+    if(size>=1){
+        print_backwards(list,size-1);
+    }
+}
+
+void withdraw(int idNo, student **list, int *sizePtr);
+void withdraw(int idNo, student **list, int *sizePtr){
+    int memory, i;
+    printf("\nWithdrawing Student\n");
+    memory=find_linsrch(idNo,list,*sizePtr);//finding id to withdraw from memory
+    
+    if(memory==-1){
+        printf("Student with this ID(%d) does not exist!", idNo);
+    }
+    else{
+        free(list[memory]);//frees the memory of this student
+        
+        for(i=memory;i<*sizePtr-1;i++){
+            list[i]=list[i+1];//pointers are being shifted simultaneously
+        }
+        *(sizePtr)-=1;
+        //printf("size %d\n",*sizePtr);
+        
+        for(i=0;i<*sizePtr;i++){
+            printf("Student ID:%d Project Grade:%d Final Exam Grade:%d Final Course Mark:%lf \n",list[i]->studentidnumber,list[i]->projectmark,list[i]->finalexammark,list[i]->finalcoursemark);
+        }
+    }
+    printf("\n");
+}
+
+void output_binary(student **list, int size, const char *fname);
+void output_binary(student **list, int size, const char *fname){
+    FILE *input_file=fopen(fname,"wb");
+    int i;
+    
+    fwrite(&size,sizeof(size),1,input_file);
+    
+    for(i=0;i<size;i++){
+        fwrite(list[i],sizeof(student),1,input_file);
+    }
+    
+    fclose(input_file);
+}
+
+void r_binary(const char *fname, int size);
+void r_binary(const char *fname, int size){
+    FILE *input_file=fopen(fname,"rb");
+    int i;
+    fread(&size,sizeof(int),1,input_file);
+    printf("Size is: %d\n");
+    student **students=(student**)malloc((size)*sizeof(student*));
+    
+    for(i=0;i<size;i++){
+        students[i]=(student*)calloc(1,sizeof(student));
+        
+        fread(students[i],sizeof(student),1,input_file);
+        printf("Student ID: %d, Project Grade: %d, Exam Grade: %d, Final Grade: %d", students[i]->studentidnumber, students[i]->projectmark, students[i]->finalexammark, students[i]->finalcoursemark);
+    }
+    fclose(input_file);
+}
+
+void destroy_list(student **list, int *sizePtr);
+void destroy_list(student **list, int *sizePtr){
+    int i;
+    
+    for(i=0;i<*sizePtr;i++){
+        free(list[i]);//frees every pointer in the array simultaneously
+    }
+    
+    free(list);//frees everything in the array
+    *sizePtr=0;//this is going to delete the number stored in the pointer
+}
+
+int main(){
+    int size=0;
+    student **students=create_class_list("inputfile.txt",&size);
+    //printf("Student that does not exist gives: %d\n\n", find_linsrch(9000, students, size));
+    //input_grades("gradesfile.txt",students,size);
+    //compute_final_course_marks(students,size);
+    //output_final_course_mark(students,"finalgradesfile.txt",size);
+    //print_backwards(students,size);
+    //printf("Binary search: %d\n\n", find_binsrch(1200, students, size));
+    //withdraw(1200,students,&size);
+    //destroy_list(students,&size);
+    //printf("Finding student after destroying list will give: %d\n\n",find_linsrch(9000, students, size));
+    
+    //While showing the output of a function remove comment in front of it.
+}

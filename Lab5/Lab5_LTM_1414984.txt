@@ -1,0 +1,66 @@
+//Fahad Mahmood
+//L05
+//1414984
+//Lab 5
+
+//Lower Triangular Matrix
+
+public class LowerTriangularMatrix {
+    private int rows;
+    private int[] data;
+
+    public LowerTriangularMatrix(int n)
+    {
+        if (n<=0)
+            rows=1;
+        else {
+            rows=n;}
+            data=new int[rows*(rows+1)/2];
+
+    }
+    public LowerTriangularMatrix(int[][] loTriM)
+    {
+        rows=loTriM.length;
+        System.out.println("rows= "+rows);
+        data=new int[rows*(rows+1)/2];
+        for(int i=0;i<rows;i++)
+        {
+            for(int j=0;j<i+1;j++)
+            {
+                data[0]=loTriM[i][j];
+            }
+        }
+    }
+    public int getDim()
+    {
+        return this.rows;
+    }
+
+    public int getElement(int i,int j) throws IndexOutOfBoundsException
+    {
+        if((i>this.rows)||(j>this.rows))
+            throw new IndexOutOfBoundsException("Invalid index");
+        return this.data[(1+i)*i/2+j];
+    }
+
+    public void setElement(int x,int i,int j) throws IndexOutOfBoundsException
+    {
+         if((i>this.rows)||(j>this.rows)||(j>i))
+            throw new IndexOutOfBoundsException("Invalid indexes");
+         this.data[(1+i)*i/2+j]=x;
+    }
+
+    public Matrix fullMatrix()
+    {
+        Matrix fMatrix=new Matrix(this.rows,this.rows);
+        int i,j;
+        for(i=0;i<this.rows;i++)
+        {
+            for(j=0;j<i+1;j++)  
+            {
+                fMatrix.setElement(this.data[0],i,j);
+            }
+        }
+        return fMatrix;
+    }
+}

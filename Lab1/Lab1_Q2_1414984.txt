@@ -1,0 +1,36 @@
+/*Fahad Mahmood,
+1414984,
+mahmof4,
+Lab 1,
+Q2*/
+
+//2)
+
+#include <stdio.h>
+
+// Program to find minimum integer
+
+int main(void){
+    int n, x, i, min=100000; //min is a huge value for this program to run smoothly
+    
+    printf("Please enter the total number of integers: ");
+    scanf("%d", &n); //read the value and stores it in n
+            
+    if(n>0){ //first condition that n should be greater than 0
+        for(i=1; i<=n; i++){
+            printf("Please enter integer %d: ", i);
+            scanf("%d", &x); //stores the integer in x
+                    
+            if(x<min){ //x will always be less than min given before
+                min=x;
+            }
+        }
+        printf("The minimum integer is %d. \n", min);
+    }
+    
+    else{
+        printf("You cannot have less than 1 integers! \n");
+    }
+    
+    return 0;
+}

@@ -1,0 +1,33 @@
+/*Fahad Mahmood,
+1414984,
+mahmof4,
+Lab 1,
+Q3*/
+
+//3)
+
+#include <stdio.h>
+
+// Program to find two-digit integers
+
+int main(void){
+    int x, i;
+    
+    do{
+        printf("Please input a two-digit integer (0 to quit): ");
+        scanf("%d", &x);
+        
+        //Using two if statements since there are more than one conditions to be satisfied
+        
+        if(x>-100 && x<100){ //AND means both should be satisfied
+            if(x<-9 || x>9){ //OR means one of them should be satisfied
+                i=x;
+                printf("Your input is a two-digit integer: %d\n",i);
+            }
+        }
+    }
+    while(x!=0);{
+        printf("Thanks for using this program. \n");
+    }
+    return 0;
+}
